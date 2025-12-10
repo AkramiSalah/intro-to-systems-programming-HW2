@@ -1,0 +1,6 @@
+# ignore IDE dirs
+.vscode
+.clion
+
+# ignore executables
+*/mtm_out
