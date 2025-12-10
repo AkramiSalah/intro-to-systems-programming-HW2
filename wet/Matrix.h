@@ -9,5 +9,6 @@ public:
     Matrix(const int& rows, const int& columns, int value = 0);
     ~Matrix();
     Matrix& operator=(const Matrix& matrix);
+    int& operator()(const int& row, const int& column);
 };
 

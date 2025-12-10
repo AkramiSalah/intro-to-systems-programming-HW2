@@ -1,9 +1,12 @@
 #include "Matrix.h"
+#include "Utilities.h"
 Matrix::Matrix() : rows(0), columns(0) {
     matrix = nullptr;
 }
 
 Matrix::Matrix(const int& rows, const int& columns, int value) : rows(rows), columns(columns) {
+    if (rows < 1 || columns < 1)
+        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
     matrix = new int[rows*columns];
     for(int i = 0; i< rows*columns; i++) {
         matrix[i] = value;
@@ -32,7 +35,11 @@ Matrix& Matrix::operator=(const Matrix& matrix) {
     }
     return *this;
 }
-
+int& Matrix::operator()(const int& row, const int& column) {
+    if(row < 0 || row >= rows || column < 0 || column >= columns)
+        throw MatamErrorType(MatamErrorType::OutOfBounds);
+    return this->matrix[row*(this->columns) + column];
+}
 
 
 
