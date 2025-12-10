@@ -9,9 +9,11 @@ Matrix::Matrix(const int& rows, const int& columns, int value) : rows(rows), col
         matrix[i] = value;
     }
 }
-/*Matrix::Matrix(const Matrix& matrix):rows() {
-
-}*/
+Matrix::Matrix(const Matrix& matrix):rows(matrix.rows), columns(matrix.columns) {
+    for(int i = 0; i< rows*columns; i++) {
+        this->matrix[i] =matrix.matrix[i] ;
+    }
+}
 
 
 
