@@ -1,10 +1,6 @@
 #pragma once
 #include <iostream>
 class Matrix {
-    int* data;
-    int rows;
-    int columns;
-
 public:
     Matrix();
 
@@ -25,8 +21,22 @@ public:
     int& operator()(const int& row, const int& column);
 
     const int operator()(const int& row, const int& column) const;
+    
+    Matrix operator-() const;
 
+    Matrix& operator+=(const Matrix& matrix);
+
+    Matrix& operator-=(const Matrix& matrix);
+
+    Matrix& operator*=(const Matrix& matrix);
+
+    Matrix& operator*=(int n);
+
+    
+private:
+    int* data;
+    int rows;
+    int columns;
     friend std::ostream& operator<<(std::ostream&, const Matrix&);
-
 };
 

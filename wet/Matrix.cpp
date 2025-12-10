@@ -72,7 +72,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
 
     for(int i = 0; i < matrix.getRows(); i++){
         os << "|";
-        for(int j = 0; j < matrix.getRows(); j++){
+        for(int j = 0; j < matrix.getColumns(); j++){
             os << matrix(i,j) << "|";
         }
         os << std::endl;
@@ -81,4 +81,40 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
     return os;
 }
 
+
+Matrix& Matrix::operator+=(const Matrix& matrix){
+    if( matrix.getRows() != this->getRows()|| matrix.getColumns() != this->getColumns()){
+        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
+    }
+    
+    for(int row = 0; row < matrix.getRows(); row++){
+        for(int column = 0; column < matrix.getColumns(); column++){
+            this->data[ row*(this->columns) + column] += matrix(row,column);
+        }
+    }
+    
+    return *this;
+}
+
+
+Matrix& Matrix::operator*=(int n){
+    for(int row = 0; row < this->getRows(); row++){
+        for(int column = 0; column < this->getColumns(); column++){
+            (*this)(row,column) *= n;
+        }
+    }
+
+    return *this;
+}
+
+Matrix Matrix::operator-() const{
+    Matrix matrix(*this);
+    matrix *= -1;
+    return matrix;
+}
+
+Matrix& Matrix::operator-=(const Matrix& matrix){
+    *this += -matrix;
+    return *this;
+}
 
