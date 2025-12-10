@@ -4,8 +4,8 @@ class Matrix {
     const int rows;
     const int columns;
 public:
-    Matrix() = default;
-
+    Matrix();
+    Matrix(const Matrix& matrix);
     Matrix(const int& rows, const int& columns, int value = 0);
     
 };

@@ -1,6 +1,6 @@
 #include "Matrix.h"
 Matrix::Matrix() : rows(0), columns(0) {
-    matrix = new int[rows*columns];
+    matrix = nullptr;
 }
 
 Matrix::Matrix(const int& rows, const int& columns, int value) : rows(rows), columns(columns) {
@@ -9,4 +9,9 @@ Matrix::Matrix(const int& rows, const int& columns, int value) : rows(rows), col
         matrix[i] = value;
     }
 }
+/*Matrix::Matrix(const Matrix& matrix):rows() {
+
+}*/
+
+
 
