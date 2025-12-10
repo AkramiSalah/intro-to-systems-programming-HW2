@@ -1,13 +1,14 @@
-//
-// Created by User on 10/12/2025.
-//
+#pragma once
 
-#ifndef WET_MATRIX_H
-#define WET_MATRIX_H
 
 
 class Matrix {
+    int* matrix;
+    const int rows;
+    const int columns;
+public:
+    Matrix(const int& rows, const int& columns);
+    Matrix(const int& rows, const int& columns,int value);
+    Matrix();
 };
 
-
-#endif //WET_MATRIX_H
