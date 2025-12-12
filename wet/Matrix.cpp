@@ -148,3 +148,20 @@ Matrix& Matrix::operator*(const Matrix& matrix) {
     return (temp *= matrix);
 }
 
+bool operator==(const Matrix& matrix1, const Matrix& matrix2) {
+    if(matrix1.rows != matrix2.rows|| matrix1.columns != matrix2.columns) {
+        return false;
+    }
+    for(int row = 0; row < matrix1.rows; row++) {
+        for(int column = 0; column < matrix1.columns; column++) {
+            if(matrix1(row,column) != matrix2(row,column))
+                return false;
+        }
+    }
+    return true;
+}
+
+bool operator!=(const Matrix& matrix1, const Matrix& matrix2) {
+    return !(matrix1==matrix2);
+}
+
