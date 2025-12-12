@@ -24,16 +24,9 @@ Matrix::~Matrix() {
     delete[] data;
 }
 
-const int  Matrix::getColumns() const {
-        return columns;
-}
-
-const int  Matrix::getRows() const{
-    return this->rows;
-}
 
 const int  Matrix::getSize() const{
-    return getColumns() * getRows();
+    return columns * rows;
 }
 
 
@@ -70,9 +63,9 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
         return os;
     }
 
-    for(int i = 0; i < matrix.getRows(); i++){
+    for(int i = 0; i < matrix.rows; i++){
         os << "|";
-        for(int j = 0; j < matrix.getColumns(); j++){
+        for(int j = 0; j < matrix.columns; j++){
             os << matrix(i,j) << "|";
         }
         os << std::endl;
@@ -83,12 +76,12 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
 
 
 Matrix& Matrix::operator+=(const Matrix& matrix){
-    if( matrix.getRows() != this->getRows()|| matrix.getColumns() != this->getColumns()){
+    if( matrix.rows != this->rows|| matrix.columns != this->columns){
         throw MatamErrorType(MatamErrorType::UnmatchedSizes);
     }
     
-    for(int row = 0; row < matrix.getRows(); row++){
-        for(int column = 0; column < matrix.getColumns(); column++){
+    for(int row = 0; row < matrix.rows; row++){
+        for(int column = 0; column < matrix.columns; column++){
             this->data[ row*(this->columns) + column] += matrix(row,column);
         }
     }
@@ -98,14 +91,30 @@ Matrix& Matrix::operator+=(const Matrix& matrix){
 
 
 Matrix& Matrix::operator*=(int n){
-    for(int row = 0; row < this->getRows(); row++){
-        for(int column = 0; column < this->getColumns(); column++){
+    for(int row = 0; row < this->rows; row++){
+        for(int column = 0; column < this->columns; column++){
             (*this)(row,column) *= n;
         }
     }
 
     return *this;
 }
+
+Matrix &Matrix::operator*=(const Matrix &matrix) {
+    if(matrix.rows != this->columns) {
+        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
+    }
+    for(int row = 0; row < this->rows; row++) {
+        for(int column = 0; column < this->columns; column++) {
+            (*this)(row,column)=0;
+            for(int i = 0; i < matrix.rows; i++) {
+                (*this)(row,column) += (*this)(row,i) * matrix(i,column);
+            }
+        }
+    }
+    return *this;
+}
+
 
 Matrix Matrix::operator-() const{
     Matrix matrix(*this);
@@ -116,5 +125,26 @@ Matrix Matrix::operator-() const{
 Matrix& Matrix::operator-=(const Matrix& matrix){
     *this += -matrix;
     return *this;
+}
+
+Matrix& Matrix::operator+(const Matrix& matrix) {
+    Matrix temp(*this);
+    return (temp += matrix);
+}
+
+Matrix& Matrix::operator-(const Matrix& matrix) {
+    Matrix temp(*this);
+    return (temp -= matrix);
+}
+
+Matrix &Matrix::operator*(int n) {
+    Matrix temp(*this);
+    return (temp *= n);
+}
+
+
+Matrix& Matrix::operator*(const Matrix& matrix) {
+    Matrix temp(*this);
+    return (temp *= matrix);
 }
 

@@ -10,9 +10,6 @@ public:
 
     ~Matrix();
 
-    const int getColumns() const;
-
-    const int getRows() const;
 
     const int getSize() const;
 
@@ -21,6 +18,14 @@ public:
     int& operator()(const int& row, const int& column);
 
     const int operator()(const int& row, const int& column) const;
+
+    Matrix& operator+(const Matrix& matrix);
+
+    Matrix& operator-(const Matrix& matrix);
+
+    Matrix& operator*(const Matrix& matrix);
+
+    Matrix& operator*(int n);
     
     Matrix operator-() const;
 
@@ -31,6 +36,8 @@ public:
     Matrix& operator*=(const Matrix& matrix);
 
     Matrix& operator*=(int n);
+
+
 
     
 private:
