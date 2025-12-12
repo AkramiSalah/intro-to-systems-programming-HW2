@@ -127,12 +127,12 @@ Matrix& Matrix::operator-=(const Matrix& matrix){
     return *this;
 }
 
-Matrix& Matrix::operator+(const Matrix& matrix) {
+Matrix Matrix::operator+(const Matrix& matrix) {
     Matrix temp(*this);
     return (temp += matrix);
 }
 
-Matrix& Matrix::operator-(const Matrix& matrix) {
+Matrix Matrix::operator-(const Matrix& matrix) {
     Matrix temp(*this);
     return (temp -= matrix);
 }
@@ -143,7 +143,7 @@ Matrix &Matrix::operator*(int n) {
 }
 
 
-Matrix& Matrix::operator*(const Matrix& matrix) {
+Matrix Matrix::operator*(const Matrix& matrix) {
     Matrix temp(*this);
     return (temp *= matrix);
 }

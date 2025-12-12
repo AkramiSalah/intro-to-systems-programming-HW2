@@ -19,11 +19,11 @@ public:
 
     const int operator()(const int& row, const int& column) const;
 
-    Matrix& operator+(const Matrix& matrix);
+    Matrix operator+(const Matrix& matrix);
 
-    Matrix& operator-(const Matrix& matrix);
+    Matrix operator-(const Matrix& matrix);
 
-    Matrix& operator*(const Matrix& matrix);
+    Matrix operator*(const Matrix& matrix);
 
     Matrix& operator*(int n);
     
