@@ -37,7 +37,9 @@ public:
 
     Matrix& operator*=(int n);
 
+    Matrix& rotateClockwise() const;
 
+    Matrix& rotateCounterClockwise() const;
 
 
 

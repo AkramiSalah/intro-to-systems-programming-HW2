@@ -165,3 +165,16 @@ bool operator!=(const Matrix& matrix1, const Matrix& matrix2) {
     return !(matrix1==matrix2);
 }
 
+Matrix &Matrix::rotateClockwise() const {
+    Matrix temp(columns,rows);
+    for(int row = 0; row < rows; row++) {
+        for(int column = 0; column < columns; column++) {
+            temp(row,column)=(*this)(column,columns-1-row);
+        }
+    }
+    return temp;
+}
+
+Matrix &Matrix::rotateCounterClockwise() const {
+    return this->rotateClockwise().rotateClockwise().rotateClockwise();
+}
