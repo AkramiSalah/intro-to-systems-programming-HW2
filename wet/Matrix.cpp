@@ -168,9 +168,9 @@ bool operator!=(const Matrix& matrix1, const Matrix& matrix2) {
 
 Matrix Matrix::rotateClockwise() const {
     Matrix temp(columns,rows);
-    for(int row = 0; row < rows; row++) {
-        for(int column = 0; column < columns; column++) {
-            temp(row,column)=(*this)(column,columns-1-row);
+    for(int column = 0; column < columns; column++) {
+        for(int row = 0; row < rows; row++) {
+            temp(column, rows - row - 1)=(*this)(row,column);
         }
     }
     return temp;
