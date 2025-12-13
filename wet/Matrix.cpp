@@ -76,7 +76,7 @@ Matrix& Matrix::operator+=(const Matrix& matrix){
     
     for(int row = 0; row < matrix.rows; row++){
         for(int column = 0; column < matrix.columns; column++){
-            data[ row*(columns) + column] += matrix(row,column);
+            (*this)(row,column) += matrix(row,column);
         }
     }
     
@@ -94,13 +94,13 @@ Matrix& Matrix::operator*=(int n){
     return *this;
 }
 
-Matrix &Matrix::operator*=(const Matrix &matrix) {
+Matrix& Matrix::operator*=(const Matrix &matrix) {
     if(matrix.rows != columns) {
         throw MatamErrorType(MatamErrorType::UnmatchedSizes);
     }
     for(int row = 0; row < rows; row++) {
         for(int column = 0; column < columns; column++) {
-            (*this)(row,column)=0;
+            (*this)(row,column) = 0;
             for(int i = 0; i < matrix.rows; i++) {
                 (*this)(row,column) += (*this)(row,i) * matrix(i,column);
             }
