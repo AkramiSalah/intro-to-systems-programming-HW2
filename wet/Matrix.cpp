@@ -141,12 +141,13 @@ Matrix Matrix::operator*(const Matrix& matrix) const{
             }
         }
     }
+
+    return result;
 }
 
 Matrix& Matrix::operator*=(const Matrix& matrix){
-    Matrix temp;
-    temp = (*this)*matrix;
-    return temp;
+    *this = (*this)*matrix;
+    return *this;
 }
 
 bool operator==(const Matrix& matrix1, const Matrix& matrix2) {
@@ -189,4 +190,41 @@ Matrix Matrix::transpose() const{
         }
     }
     return temp;
+}
+
+
+Matrix Matrix::subMatrix(const Matrix& matrix, int skipRow, int skipColumn){
+    int subMatrixRow = 0;
+    int subMatrixColumn = 0;
+    Matrix result(matrix.rows-1, matrix.columns-1);
+    for(int row = 0; row < matrix.rows; row++){
+        if(row == skipRow){
+                continue;
+        }
+        for(int column = 0; column < matrix.columns; column++){
+            if(column == skipColumn){
+                continue;
+            }
+            result(subMatrixRow,subMatrixColumn) = matrix(row,column);
+            subMatrixColumn++;
+        }
+        subMatrixRow++;
+        subMatrixColumn = 0;
+    }
+
+    return result;
+}
+
+int Matrix::CalcDeterminant(const Matrix& matrix){
+    int sign = 1;
+    int result = 0;
+    if(matrix.rows == 1 && matrix.columns == 1){
+        return matrix.data[0];
+    }
+    for(int column = 0; column < matrix.columns; column++){
+        Matrix currentSubMatrix = subMatrix(matrix, 0, column);
+        result += sign * matrix(0,column) * CalcDeterminant(currentSubMatrix);
+        sign *= -1;
+    }
+    return result;
 }
