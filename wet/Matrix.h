@@ -24,7 +24,7 @@ public:
 
     Matrix operator*(const Matrix& matrix) const;
 
-    Matrix& operator*(int n);
+    Matrix operator*(int n) const;
 
     Matrix& operator+=(const Matrix& matrix);
 

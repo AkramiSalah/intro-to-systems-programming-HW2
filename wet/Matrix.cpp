@@ -70,7 +70,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
 
 
 Matrix& Matrix::operator+=(const Matrix& matrix){
-    if( matrix.rows != rows|| matrix.columns != columns){
+    if( matrix.rows != rows || matrix.columns != columns){
         throw MatamErrorType(MatamErrorType::UnmatchedSizes);
     }
     
@@ -131,9 +131,10 @@ Matrix Matrix::operator-(const Matrix& matrix) const {
     return (temp -= matrix);
 }
 
-Matrix &Matrix::operator*(int n) {
+Matrix Matrix::operator*(int n) const{
     Matrix temp(*this);
-    return (temp *= n);
+    temp *= n;
+    return temp;
 }
 
 
