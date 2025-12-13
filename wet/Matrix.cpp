@@ -24,12 +24,6 @@ Matrix::~Matrix() {
     delete[] data;
 }
 
-
-const int  Matrix::getSize() const{
-    return columns * rows;
-}
-
-
 Matrix& Matrix::operator=(const Matrix& matrix) {
     if(this == &matrix) {
         return *this;
@@ -58,7 +52,7 @@ const int Matrix::operator()(const int& row, const int& column) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
-    if(matrix.getSize() == 0){
+    if(matrix.rows * matrix.columns == 0){
         os << "||" << std::endl;
         return os;
     }
