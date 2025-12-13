@@ -10,6 +10,8 @@ public:
 
     ~Matrix();
 
+    friend std::ostream& operator<<(std::ostream&, const Matrix&);
+    
     Matrix& operator=(const Matrix& matrix);
 
     int& operator()(const int& row, const int& column);
@@ -53,6 +55,5 @@ private:
     int* data;
     int rows;
     int columns;
-    friend std::ostream& operator<<(std::ostream&, const Matrix&);
 };
 
