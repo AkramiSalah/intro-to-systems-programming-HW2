@@ -179,3 +179,14 @@ Matrix Matrix::rotateClockwise() const {
 Matrix Matrix::rotateCounterClockwise() const {
     return rotateClockwise().rotateClockwise().rotateClockwise();
 }
+
+Matrix Matrix::transpose() const{
+
+    Matrix temp(columns,rows);
+    for(int column = 0; column < columns; column++) {
+        for(int row = 0; row < rows; row++) {
+            temp(column, rows)=(*this)(row,column);
+        }
+    }
+    return temp;
+}

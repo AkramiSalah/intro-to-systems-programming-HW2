@@ -11,7 +11,7 @@ public:
     ~Matrix();
 
     friend std::ostream& operator<<(std::ostream&, const Matrix&);
-    
+
     Matrix& operator=(const Matrix& matrix);
 
     int& operator()(const int& row, const int& column);
@@ -49,6 +49,8 @@ public:
     Matrix rotateClockwise() const;
 
     Matrix rotateCounterClockwise() const;
+
+    Matrix transpose() const;
 
 
 private:
