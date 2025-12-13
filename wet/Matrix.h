@@ -24,6 +24,8 @@ public:
 
     Matrix operator*(const Matrix& matrix) const;
 
+    friend Matrix operator*(int scalar, const Matrix& matrix);
+
     Matrix operator*(int n) const;
 
     Matrix& operator+=(const Matrix& matrix);
