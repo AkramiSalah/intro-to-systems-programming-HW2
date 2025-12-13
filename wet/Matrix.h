@@ -18,37 +18,41 @@ public:
     
     Matrix operator-() const;
 
+    Matrix& operator+=(const Matrix& matrix);
+
     Matrix operator+(const Matrix& matrix) const;
 
+    Matrix& operator-=(const Matrix& matrix);
+    
     Matrix operator-(const Matrix& matrix) const;
+
+
+
+    Matrix& operator*=(int n);
 
     Matrix operator*(const Matrix& matrix) const;
 
     friend Matrix operator*(int scalar, const Matrix& matrix);
 
-    Matrix operator*(int n) const;
-
-    Matrix& operator+=(const Matrix& matrix);
-
-    Matrix& operator-=(const Matrix& matrix);
-
     Matrix& operator*=(const Matrix& matrix);
 
-    Matrix& operator*=(int n);
+    Matrix operator*(int scalar) const;
+    
+    
+
+    friend bool operator==(const Matrix& matrix1, const Matrix& matrix2);
+   
+    friend bool operator!=(const Matrix& matrix1, const Matrix& matrix2);
 
     Matrix rotateClockwise() const;
 
     Matrix rotateCounterClockwise() const;
 
 
-
-    
 private:
     int* data;
     int rows;
     int columns;
-    friend bool operator==(const Matrix& matrix1, const Matrix& matrix2);
-    friend bool operator!=(const Matrix& matrix1, const Matrix& matrix2);
     friend std::ostream& operator<<(std::ostream&, const Matrix&);
 };
 
