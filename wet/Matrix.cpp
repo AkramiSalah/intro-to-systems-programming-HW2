@@ -94,20 +94,6 @@ Matrix& Matrix::operator*=(int n){
     return *this;
 }
 
-Matrix& Matrix::operator*=(const Matrix &matrix) {
-    if(matrix.rows != columns) {
-        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
-    }
-    for(int row = 0; row < rows; row++) {
-        for(int column = 0; column < columns; column++) {
-            (*this)(row,column) = 0;
-            for(int i = 0; i < matrix.rows; i++) {
-                (*this)(row,column) += (*this)(row,i) * matrix(i,column);
-            }
-        }
-    }
-    return *this;
-}
 
 
 Matrix Matrix::operator-() const{
@@ -137,10 +123,30 @@ Matrix Matrix::operator*(int n) const{
     return temp;
 }
 
+Matrix operator*(int scalar, const Matrix& matrix){
+    return matrix * scalar;
+}
+
 
 Matrix Matrix::operator*(const Matrix& matrix) const{
-    Matrix temp(*this);
-    return (temp *= matrix);
+    if(columns != matrix.rows){
+        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
+    }
+
+    Matrix result(rows, matrix.columns);
+    for(int row = 0; row < rows; row++){
+        for(int column = 0; column < columns; column++){
+            for(int vectorIndex = 0; vectorIndex < row; vectorIndex++){
+                result(row,column) += (*this)(row,vectorIndex) * matrix(vectorIndex,column);
+            }
+        }
+    }
+}
+
+Matrix& Matrix::operator*=(const Matrix& matrix){
+    Matrix temp;
+    temp = (*this)*matrix;
+    return temp;
 }
 
 bool operator==(const Matrix& matrix1, const Matrix& matrix2) {
