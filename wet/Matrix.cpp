@@ -1,5 +1,7 @@
 #include "Matrix.h"
 #include "Utilities.h"
+#include <cmath>
+
 Matrix::Matrix() : rows(0), columns(0) {
     data = nullptr;
 }
@@ -227,4 +229,13 @@ int Matrix::CalcDeterminant(const Matrix& matrix){
         sign *= -1;
     }
     return result;
+}
+
+int Matrix::CalcFrobeniusNorm(const Matrix& matrix){
+    int matrixSize = matrix.rows * matrix.columns;
+    int result = 0;
+    for(int i = 0; i < matrixSize; i++){
+        result += matrix.data[i] * matrix.data[i];
+    }
+    return std::sqrt(result);
 }
