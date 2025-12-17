@@ -25,9 +25,17 @@ MataMvidia& MataMvidia::operator+=(const Matrix& other){
     for (int i = 0; i < frameCount; i++) {
         newFrames[i] = frames[i];
     }
-    
+
     (*this) = MataMvidia(frameCount + 1, filmName, directorName, newFrames);
 }
+
+MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
+    for(int i = 0; i < other.frameCount; i++){
+        *this += other[i];
+    }
+}
+
+
 
 std::ostream& operator<<(std::ostream& os, const MataMvidia& film){
     os << "Movie Name:" << film.filmName << std::endl;
