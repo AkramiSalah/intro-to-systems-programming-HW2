@@ -9,6 +9,27 @@ MataMvidia::MataMvidia(int frameCount, const std::string filmName, const std::st
 
 MataMvidia::MataMvidia(const MataMvidia &other): MataMvidia(other.frameCount,other.filmName,other.directorName,other.frames) {}
 
+MataMvidia::~MataMvidia() {
+    for (int i = 0; i < frameCount; i++) {
+        delete[] this->frames;
+    }
+    delete[] this->frames;
+}
+
+MataMvidia &MataMvidia::operator=(const MataMvidia &other) {
+    this->frameCount = other.frameCount;
+    this->filmName = other.filmName;
+    this->directorName = other.directorName;
+    Matrix* temp=new Matrix[frameCount];
+    delete[] this->frames;
+    this->frames = temp;
+    for (int i = 0; i < frameCount; i++) {
+        this->frames[i] = other.frames[i];
+    }
+    return *this;
+}
+
+
 Matrix& MataMvidia::operator[](int index){
     if(index < 0 || index >= frameCount){
         throw MatamErrorType(MatamErrorType::OutOfBounds);

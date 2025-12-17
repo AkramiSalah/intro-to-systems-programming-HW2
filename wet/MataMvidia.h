@@ -12,6 +12,8 @@ public:
 
     const Matrix& operator[](int index) const;
 
+    ~MataMvidia();
+
     Matrix& operator[](int index);
 
     MataMvidia& operator+=(const MataMvidia& other);
@@ -25,8 +27,8 @@ public:
 
 private:
     int frameCount;
-    const std::string filmName;
-    const std::string directorName;
+    std::string filmName;
+    std::string directorName;
     Matrix* frames;
 };
 
