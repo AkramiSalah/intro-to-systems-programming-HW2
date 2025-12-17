@@ -1,13 +1,21 @@
-//
-// Created by User on 10/12/2025.
-//
-
-#ifndef WET_MATAMVIDIA_H
-#define WET_MATAMVIDIA_H
-
+#pragma once
+#include "Matrix.h"
+#include <string>
 
 class MataMvidia {
+public:
+    
+
+
+
+
+
+
+private:
+    int frameCount;
+    const std::string filmName;
+    const std::string directorName;
+    Matrix* frames;
 };
 
 
-#endif //WET_MATAMVIDIA_H
