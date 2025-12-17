@@ -18,3 +18,15 @@ Matrix& MataMvidia::operator[](int index){
 const Matrix& MataMvidia::operator[](int index) const{
     return (*this)[index];
 }
+
+std::ostream& operator<<(std::ostream& os, const MataMvidia& film){
+    os << "Movie Name:" << film.filmName << std::endl;
+    os << "Author:" << film.directorName << std::endl;
+
+    for(int i = 0; i < film.frameCount; i++){
+        os << "Frame " << i << ":" << std::endl;
+        os << film[i] << std::endl;
+    }
+
+    os << "-----End of Movie-----" << std::endl;
+}
