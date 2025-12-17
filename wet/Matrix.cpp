@@ -138,7 +138,7 @@ Matrix Matrix::operator*(const Matrix& matrix) const{
     Matrix result(rows, matrix.columns);
     for(int row = 0; row < rows; row++){
         for(int column = 0; column < columns; column++){
-            for(int vectorIndex = 0; vectorIndex < row; vectorIndex++){
+            for(int vectorIndex = 0; vectorIndex < rows; vectorIndex++){
                 result(row,column) += (*this)(row,vectorIndex) * matrix(vectorIndex,column);
             }
         }

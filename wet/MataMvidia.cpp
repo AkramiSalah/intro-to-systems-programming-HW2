@@ -37,7 +37,10 @@ Matrix& MataMvidia::operator[](int index){
 }
 
 const Matrix& MataMvidia::operator[](int index) const{
-    return (*this)[index];
+    if(index < 0 || index >= frameCount){
+        throw MatamErrorType(MatamErrorType::OutOfBounds);
+    }
+    return frames[index];
 }
 
 MataMvidia& MataMvidia::operator+=(const Matrix& other){
@@ -47,12 +50,15 @@ MataMvidia& MataMvidia::operator+=(const Matrix& other){
     }
 
     *this = MataMvidia(filmName, directorName, newFrames, frameCount + 1);
+    return *this;
 }
 
 MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
     for(int i = 0; i < other.frameCount; i++){
         *this += other[i];
     }
+
+    return *this;
 }
 
 MataMvidia MataMvidia::operator+(const MataMvidia& other){
@@ -72,4 +78,5 @@ std::ostream& operator<<(std::ostream& os, const MataMvidia& film){
     }
 
     os << "-----End of Movie-----" << std::endl;
+    return os;
 }
