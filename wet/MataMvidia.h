@@ -4,11 +4,14 @@
 
 class MataMvidia {
 public:
-    
-
-
-
-
+    MataMvidia(int frameCount,const std::string filmName,const std::string directorName, const Matrix* frames);
+    MataMvidia(const MataMvidia& other);
+    MataMvidia& operator=(const MataMvidia& other);
+    const Matrix& operator[](int index) const;
+    Matrix& operator[](int index);
+    MataMvidia& operator+=(const MataMvidia& other);
+    MataMvidia& operator+=(const Matrix& other);
+    MataMvidia operator+(const MataMvidia& other);
 
 
 private:
