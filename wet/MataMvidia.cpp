@@ -7,9 +7,7 @@ MataMvidia::MataMvidia(int frameCount, const std::string filmName, const std::st
     }
 }
 
-MataMvidia::MataMvidia(const MataMvidia &other):MataMvidia(other.frameCount,other.filmName,other.directorName,other.frames) {}
-
-
+MataMvidia::MataMvidia(const MataMvidia &other): MataMvidia(other.frameCount,other.filmName,other.directorName,other.frames) {}
 
 Matrix& MataMvidia::operator[](int index){
     if(index < 0 || index >= frameCount){
@@ -20,6 +18,15 @@ Matrix& MataMvidia::operator[](int index){
 
 const Matrix& MataMvidia::operator[](int index) const{
     return (*this)[index];
+}
+
+MataMvidia& MataMvidia::operator+=(const Matrix& other){
+    Matrix* newFrames = new Matrix[frameCount + 1];
+    for (int i = 0; i < frameCount; i++) {
+        newFrames[i] = frames[i];
+    }
+    
+    (*this) = MataMvidia(frameCount + 1, filmName, directorName, newFrames);
 }
 
 std::ostream& operator<<(std::ostream& os, const MataMvidia& film){
