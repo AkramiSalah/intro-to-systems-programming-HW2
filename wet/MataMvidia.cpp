@@ -35,6 +35,11 @@ MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
     }
 }
 
+MataMvidia MataMvidia::operator+(const MataMvidia& other){
+    MataMvidia result = *this;
+    result += other;
+    return result;
+}
 
 
 std::ostream& operator<<(std::ostream& os, const MataMvidia& film){
