@@ -7,8 +7,11 @@ Matrix::Matrix() : rows(0), columns(0) {
 }
 
 Matrix::Matrix(const int& rows, const int& columns, int value) : rows(rows), columns(columns) {
-    if (rows < 1 || columns < 1)
-        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
+    if (rows <= 0 || columns <= 0){
+        data = nullptr;
+        return;
+    }
+
     data = new int[rows*columns];
     for(int i = 0; i < rows*columns; i++) {
         data[i] = value;
@@ -43,19 +46,18 @@ Matrix& Matrix::operator=(const Matrix& matrix) {
 
 int& Matrix::operator()(const int& row, const int& column) {
     if(row < 0 || row >= rows || column < 0 || column >= columns)
-        throw MatamErrorType(MatamErrorType::OutOfBounds);
+        exitWithError(MatamErrorType(MatamErrorType::OutOfBounds));
     return data[row*(columns) + column];
 }
 
 const int Matrix::operator()(const int& row, const int& column) const {
     if(row < 0 || row >= rows || column < 0 || column >= columns)
-        throw MatamErrorType(MatamErrorType::OutOfBounds);
+        exitWithError(MatamErrorType(MatamErrorType::OutOfBounds));
     return data[row*(columns) + column];
 }
 
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
     if(matrix.rows * matrix.columns == 0){
-        os << "||" << std::endl;
         return os;
     }
 
@@ -73,7 +75,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
 
 Matrix& Matrix::operator+=(const Matrix& matrix){
     if( matrix.rows != rows || matrix.columns != columns){
-        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
+        exitWithError(MatamErrorType(MatamErrorType::UnmatchedSizes));
     }
     
     for(int row = 0; row < matrix.rows; row++){
@@ -84,7 +86,6 @@ Matrix& Matrix::operator+=(const Matrix& matrix){
     
     return *this;
 }
-
 
 Matrix& Matrix::operator*=(int n){
     for(int row = 0; row < rows; row++){
@@ -132,13 +133,13 @@ Matrix operator*(int scalar, const Matrix& matrix){
 
 Matrix Matrix::operator*(const Matrix& matrix) const{
     if(columns != matrix.rows){
-        throw MatamErrorType(MatamErrorType::UnmatchedSizes);
+        exitWithError(MatamErrorType(MatamErrorType::UnmatchedSizes));
     }
 
     Matrix result(rows, matrix.columns);
     for(int row = 0; row < rows; row++){
-        for(int column = 0; column < columns; column++){
-            for(int vectorIndex = 0; vectorIndex < rows; vectorIndex++){
+        for(int column = 0; column < matrix.columns; column++){
+            for(int vectorIndex = 0; vectorIndex < columns; vectorIndex++){
                 result(row,column) += (*this)(row,vectorIndex) * matrix(vectorIndex,column);
             }
         }
@@ -184,11 +185,10 @@ Matrix Matrix::rotateCounterClockwise() const {
 }
 
 Matrix Matrix::transpose() const{
-
     Matrix temp(columns,rows);
     for(int column = 0; column < columns; column++) {
         for(int row = 0; row < rows; row++) {
-            temp(column, rows)=(*this)(row,column);
+            temp(column, row)=(*this)(row,column);
         }
     }
     return temp;
@@ -218,6 +218,9 @@ Matrix Matrix::subMatrix(const Matrix& matrix, int skipRow, int skipColumn){
 }
 
 int Matrix::CalcDeterminant(const Matrix& matrix){
+    if(matrix.columns != matrix.rows || matrix.data == nullptr){
+        exitWithError(MatamErrorType(MatamErrorType::NotSquareMatrix));
+    }
     int sign = 1;
     int result = 0;
     if(matrix.rows == 1 && matrix.columns == 1){

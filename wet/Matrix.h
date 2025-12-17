@@ -6,7 +6,7 @@ public:
 
     Matrix(const Matrix& matrix);
 
-    Matrix(const int& rows, const int& columns, int value = 0);
+    Matrix(const int& rows, const int& columns, const int value = 0);
 
     ~Matrix();
 

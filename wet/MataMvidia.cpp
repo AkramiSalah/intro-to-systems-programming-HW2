@@ -16,11 +16,14 @@ MataMvidia::~MataMvidia() {
     delete[] this->frames;
 }
 
-MataMvidia &MataMvidia::operator=(const MataMvidia &other) {
+MataMvidia &MataMvidia::operator=(const MataMvidia& other) {
+    if(this == &other){
+        return *this;
+    }
     this->frameCount = other.frameCount;
     this->filmName = other.filmName;
     this->directorName = other.directorName;
-    Matrix* temp=new Matrix[frameCount];
+    Matrix* temp = new Matrix[frameCount];
     delete[] this->frames;
     this->frames = temp;
     for (int i = 0; i < frameCount; i++) {
@@ -31,14 +34,14 @@ MataMvidia &MataMvidia::operator=(const MataMvidia &other) {
 
 Matrix& MataMvidia::operator[](int index){
     if(index < 0 || index >= frameCount){
-        throw MatamErrorType(MatamErrorType::OutOfBounds);
+        exitWithError(MatamErrorType(MatamErrorType::OutOfBounds));
     }
     return frames[index];
 }
 
 const Matrix& MataMvidia::operator[](int index) const{
     if(index < 0 || index >= frameCount){
-        throw MatamErrorType(MatamErrorType::OutOfBounds);
+        exitWithError(MatamErrorType(MatamErrorType::OutOfBounds));
     }
     return frames[index];
 }
@@ -49,7 +52,12 @@ MataMvidia& MataMvidia::operator+=(const Matrix& other){
         newFrames[i] = frames[i];
     }
 
-    *this = MataMvidia(filmName, directorName, newFrames, frameCount + 1);
+    newFrames[frameCount] = other;
+
+    delete[] frames;
+    frames = newFrames;
+    frameCount++;
+
     return *this;
 }
 
@@ -57,7 +65,6 @@ MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
     for(int i = 0; i < other.frameCount; i++){
         *this += other[i];
     }
-
     return *this;
 }
 
@@ -69,8 +76,9 @@ MataMvidia MataMvidia::operator+(const MataMvidia& other){
 
 
 std::ostream& operator<<(std::ostream& os, const MataMvidia& film){
-    os << "Movie Name:" << film.filmName << std::endl;
-    os << "Author:" << film.directorName << std::endl;
+    os << "Movie Name: " << film.filmName << std::endl;
+    os << "Author: " << film.directorName << std::endl;
+    os << std::endl;
 
     for(int i = 0; i < film.frameCount; i++){
         os << "Frame " << i << ":" << std::endl;
