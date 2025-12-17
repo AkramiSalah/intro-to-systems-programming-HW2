@@ -4,7 +4,7 @@
 
 class MataMvidia {
 public:
-    MataMvidia(int frameCount, const std::string filmName, const std::string directorName, const Matrix* frames);
+    MataMvidia(const std::string filmName, const std::string directorName, const Matrix* frames, int frameCount);
 
     MataMvidia(const MataMvidia& other);
 

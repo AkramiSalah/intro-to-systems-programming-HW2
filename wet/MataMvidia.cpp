@@ -1,18 +1,18 @@
 #include "MataMvidia.h"
 #include "Utilities.h"
-MataMvidia::MataMvidia(int frameCount, const std::string filmName, const std::string directorName, const Matrix *frames): frameCount(frameCount), filmName(filmName), directorName(directorName) {
+
+MataMvidia::MataMvidia(const std::string filmName, const std::string directorName, const Matrix *frames, int frameCount) :
+    frameCount(frameCount), filmName(filmName), directorName(directorName){
     this->frames = new Matrix[frameCount];
     for (int i = 0; i < frameCount; i++) {
         this->frames[i] = frames[i];
     }
 }
 
-MataMvidia::MataMvidia(const MataMvidia &other): MataMvidia(other.frameCount,other.filmName,other.directorName,other.frames) {}
+MataMvidia::MataMvidia(const MataMvidia &other) : 
+    MataMvidia(other.filmName, other.directorName, other.frames, other.frameCount) {}
 
 MataMvidia::~MataMvidia() {
-    for (int i = 0; i < frameCount; i++) {
-        delete[] this->frames;
-    }
     delete[] this->frames;
 }
 
@@ -28,7 +28,6 @@ MataMvidia &MataMvidia::operator=(const MataMvidia &other) {
     }
     return *this;
 }
-
 
 Matrix& MataMvidia::operator[](int index){
     if(index < 0 || index >= frameCount){
@@ -47,7 +46,7 @@ MataMvidia& MataMvidia::operator+=(const Matrix& other){
         newFrames[i] = frames[i];
     }
 
-    (*this) = MataMvidia(frameCount + 1, filmName, directorName, newFrames);
+    *this = MataMvidia(filmName, directorName, newFrames, frameCount + 1);
 }
 
 MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
