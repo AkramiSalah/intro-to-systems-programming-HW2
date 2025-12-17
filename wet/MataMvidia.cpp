@@ -7,6 +7,9 @@ MataMvidia::MataMvidia(int frameCount, const std::string filmName, const std::st
     }
 }
 
+MataMvidia::MataMvidia(const MataMvidia &other):MataMvidia(other.frameCount,other.filmName,other.directorName,other.frames) {}
+
+
 
 Matrix& MataMvidia::operator[](int index){
     if(index < 0 || index >= frameCount){
