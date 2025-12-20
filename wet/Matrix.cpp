@@ -234,9 +234,9 @@ int Matrix::CalcDeterminant(const Matrix& matrix){
     return result;
 }
 
-int Matrix::CalcFrobeniusNorm(const Matrix& matrix){
+double Matrix::CalcFrobeniusNorm(const Matrix& matrix){
     int matrixSize = matrix.rows * matrix.columns;
-    int result = 0;
+    double result = 0;
     for(int i = 0; i < matrixSize; i++){
         result += matrix.data[i] * matrix.data[i];
     }

@@ -54,7 +54,7 @@ public:
 
     static int CalcDeterminant(const Matrix& matrix);
 
-    static int CalcFrobeniusNorm(const Matrix& matrix);
+    static double CalcFrobeniusNorm(const Matrix& matrix);
 
 
 private:
