@@ -1,7 +1,7 @@
 #include "MataMvidia.h"
 #include "Utilities.h"
 
-MataMvidia::MataMvidia(const std::string filmName, const std::string directorName, const Matrix *frames, int frameCount) :
+MataMvidia::MataMvidia(const std::string& filmName, const std::string& directorName, const Matrix *frames, int frameCount) :
     frameCount(frameCount), filmName(filmName), directorName(directorName){
     this->frames = new Matrix[frameCount];
     for (int i = 0; i < frameCount; i++) {
@@ -20,15 +20,18 @@ MataMvidia &MataMvidia::operator=(const MataMvidia& other) {
     if(this == &other){
         return *this;
     }
+
+    Matrix* temp = new Matrix[other.frameCount];
+    for (int i = 0; i < other.frameCount; i++) {
+        temp[i] = other.frames[i];
+    }
+    
     this->frameCount = other.frameCount;
     this->filmName = other.filmName;
     this->directorName = other.directorName;
-    Matrix* temp = new Matrix[frameCount];
+
     delete[] this->frames;
     this->frames = temp;
-    for (int i = 0; i < frameCount; i++) {
-        this->frames[i] = other.frames[i];
-    }
     return *this;
 }
 
@@ -68,7 +71,7 @@ MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
     return *this;
 }
 
-MataMvidia MataMvidia::operator+(const MataMvidia& other){
+MataMvidia MataMvidia::operator+(const MataMvidia& other) const{
     MataMvidia result = *this;
     result += other;
     return result;

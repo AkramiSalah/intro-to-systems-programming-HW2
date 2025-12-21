@@ -4,7 +4,7 @@
 
 class MataMvidia {
 public:
-    MataMvidia(const std::string filmName, const std::string directorName, const Matrix* frames, int frameCount);
+    MataMvidia(const std::string& filmName, const std::string& directorName, const Matrix* frames, int frameCount);
 
     MataMvidia(const MataMvidia& other);
 
@@ -20,7 +20,7 @@ public:
 
     MataMvidia& operator+=(const Matrix& other);
 
-    MataMvidia operator+(const MataMvidia& other);
+    MataMvidia operator+(const MataMvidia& other) const;
 
     friend std::ostream& operator<<(std::ostream&, const MataMvidia&);
 
