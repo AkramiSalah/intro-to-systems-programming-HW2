@@ -1,8 +1,0 @@
-# ignore IDE dirs
-.vscode
-.clion
-.idea
-# ignore executables
-*/mtm_out
-wet/main.cpp
-wet/mtm_blockchain
