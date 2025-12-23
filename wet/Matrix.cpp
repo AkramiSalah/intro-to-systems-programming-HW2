@@ -217,15 +217,22 @@ Matrix Matrix::subMatrix(const Matrix& matrix, int skipRow, int skipColumn){
     return result;
 }
 
-int Matrix::CalcDeterminant(const Matrix& matrix){
-    if(matrix.columns != matrix.rows || matrix.data == nullptr){
+double Matrix::CalcDeterminant(const Matrix& matrix){
+    if(matrix.columns != matrix.rows){
         exitWithError(MatamErrorType(MatamErrorType::NotSquareMatrix));
     }
-    int sign = 1;
-    int result = 0;
+
+    if(matrix.data == nullptr){
+        return 0;
+    }
+    
     if(matrix.rows == 1 && matrix.columns == 1){
         return matrix.data[0];
     }
+
+    double sign = 1;
+    double result = 0;
+
     for(int column = 0; column < matrix.columns; column++){
         Matrix currentSubMatrix = subMatrix(matrix, 0, column);
         result += sign * matrix(0,column) * CalcDeterminant(currentSubMatrix);
