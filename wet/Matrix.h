@@ -61,6 +61,6 @@ private:
     int* data;
     int rows;
     int columns;
-    const Matrix subMatrix(const Matrix& matrix, int skipRow, int skipColumn)
+    static Matrix subMatrix(const Matrix& matrix, int skipRow, int skipColumn);
 };
 
