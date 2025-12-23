@@ -52,7 +52,7 @@ public:
 
     Matrix transpose() const;
 
-    static int CalcDeterminant(const Matrix& matrix);
+    static double CalcDeterminant(const Matrix& matrix);
 
     static double CalcFrobeniusNorm(const Matrix& matrix);
 
@@ -61,8 +61,5 @@ private:
     int* data;
     int rows;
     int columns;
-
-    static int CalcDeterminant(const Matrix& matrix, int startRow, int startColumn, int skipColumn);
     static Matrix subMatrix(const Matrix& matrix, int skipRow, int skipColumn);
 };
-
